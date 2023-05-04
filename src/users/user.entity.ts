@@ -42,6 +42,9 @@ export class Accounts extends BaseEntity {
   residentIdNum: string = '';
 
   @Column()
+  residentType: string = ' ';
+
+  @Column()
   address1: string = '';
 
   @Column()
@@ -52,6 +55,9 @@ export class Accounts extends BaseEntity {
 
   @Column()
   password: string = '';
+
+  // @Column({ type: 'blob', nullable: true })
+  // photo: Blob;
 
   @Column()
   @UpdateDateColumn()
