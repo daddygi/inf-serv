@@ -13,8 +13,8 @@ import { JwtStrategy } from './jwt.strategy';
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async () => ({
-        secret: 'pplucky00691234',
+      useFactory: async (configService: ConfigService) => ({
+        secret: 'infoManBarangay',
       }),
       inject: [ConfigService],
     }),
