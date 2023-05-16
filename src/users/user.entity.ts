@@ -6,11 +6,13 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   BeforeInsert,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 
-@Entity({ name: 'tblaccounts' })
-export class Accounts extends BaseEntity {
+@Entity({ name: 'tblUserInfo' })
+export class UserInfo extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,19 +32,25 @@ export class Accounts extends BaseEntity {
   gender: string = '';
 
   @Column()
-  age: string = '';
+  birthDay: Date;
 
   @Column()
-  contactNumber: string = '';
+  age: number;
+
+  @Column()
+  civilStatus: string = '';
+
+  @Column()
+  residentType: string = '';
+
+  @Column()
+  contactNumber: number;
 
   @Column()
   occupation: string = '';
 
   @Column()
-  residentIdNum: string = '';
-
-  @Column()
-  residentType: string = ' ';
+  residentIdNumber: number;
 
   @Column()
   address1: string = '';
@@ -50,22 +58,33 @@ export class Accounts extends BaseEntity {
   @Column()
   address2: string = '';
 
+  @Column({ nullable: true })
+  photo: string;
+
+  @Column()
+  @UpdateDateColumn()
+  created_at: Date;
+
+  @Column()
+  @UpdateDateColumn()
+  updated_at: Date;
+}
+
+@Entity({ name: 'tblAccounts' })
+export class Accounts extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column({ unique: true })
   email: string = '';
 
   @Column()
   password: string = '';
 
-  // @Column({ type: 'blob', nullable: true })
-  // photo: Blob;
-
-  @Column()
-  @UpdateDateColumn()
-  createAt: Date;
-
-  @Column()
-  @UpdateDateColumn()
-  updateAt: Date;
+  // One-to-one relationship with tblUserInfo
+  @OneToOne(() => UserInfo)
+  @JoinColumn()
+  userInfo: UserInfo;
 
   @BeforeInsert()
   async hashPassword() {
@@ -76,4 +95,50 @@ export class Accounts extends BaseEntity {
   async validatePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password);
   }
+}
+
+@Entity({ name: 'tblAnnouncements' })
+export class Announcements extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  ID: number;
+
+  @Column()
+  body: string = '';
+
+  @Column()
+  photo: string;
+
+  @Column()
+  @UpdateDateColumn()
+  created_at: Date;
+}
+
+@Entity({ name: 'tblUserPhoto' })
+export class UserPhoto extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  ID: number;
+
+  @Column()
+  alt: string = '';
+
+  @Column()
+  photo: string;
+}
+
+@Entity({ name: 'tblTotals' })
+export class Totals extends BaseEntity {
+  @Column()
+  totalInhabitants: number;
+
+  @Column()
+  totalMales: number;
+
+  @Column()
+  totalFemales: number;
+
+  @Column()
+  totalPermanentResidents: number;
+
+  @Column()
+  totalTempResidents: number;
 }

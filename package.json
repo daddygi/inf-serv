@@ -20,6 +20,11 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@azure/identity": "^3.2.1",
+    "@azure/keyvault": "^0.1.0",
+    "@azure/keyvault-secrets": "^4.7.0",
+    "@azure/ms-rest-nodeauth": "^3.1.1",
+    "@azure/msal-node": "^1.17.2",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.4.0",
     "@nestjs/jwt": "^10.0.3",
@@ -27,6 +32,7 @@
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@nestjs/azure-ad": "github:nestjs-community/nestjs-azure-ad#master",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
